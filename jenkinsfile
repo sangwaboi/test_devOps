@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    tools {
+        // Use the exact name of your Maven installation as set in Jenkins Global Tool Configuration.
+        maven 'maven'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                // This step tells Jenkins to pull the source code from your repository.
+                checkout scm
+            }
+        }
+        stage('Build') {
+            steps {
+                // Run Maven command to clean and package your project.
+                sh 'mvn clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                // Run Maven tests.
+                sh 'mvn test'
+            }
+        }
+    }
+}
